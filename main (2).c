@@ -1,13 +1,3 @@
-/*----------------------------------------------------------------------------------------------------
-Project 1: Food Web Analysis with DYnamic Memory
-Course: CS211, Spring 2024, UIC
-System: Advanced ZyLab
-Author: Pinqing Qiu
-Description: This program simulate food web, and allow adding relationship to predators and their prey,
-			 and identify different types of origanism. Also, it can manipulate the extinction species
-			 which would impact the food web.
-------------------------------------------------------------------------------------------------------*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -232,42 +222,7 @@ void findVoreTypes(Org *web, int numOrgs) {
 
 // function to simulate the extinction of a species and update the food web
 void extinction(Org **web, int *numOrgs, int index) {
-	//meizuo (Task 3): remove the organism associated with [index] from web.
-	//      Inputs:
-	//          web - a dynamically allocated array of Orgs
-	//          numOrgs - number of organisms = size of web[]
-	//          index - organism index in web[] to remove
-	//      Outputs:
-	//          web - pointer passed-by-pointer; memory address of web array changes due to reallocation
-	//          numOrgs - passed-by-pointer; must be decremented since web[] loses an organism
-	//
-	//      Remember to do the following:
-	//      1. remove organism at index from web[] - DO NOT use realloc(), instead...
-	//          (a) free any malloc'd memory associated with organism at index; i.e. its prey[] subitem
-	//          (b) malloc new space for the array with the new number of Orgs
-	//          (c) copy all but one of the old array elements to the new array,
-	//              some require shifting forward to overwrite the organism at index
-	//          (d) free the old array
-	//          (e) update the array pointer to the new array
-	//          (f) update numOrgs
-	//      2. remove index from all organisms' prey[] array subitems - DO NOT use realloc(), instead...
-	//          (a) search for index in all organisms' prey[] arrays; when index is found:
-	//                [i] malloc new space for the array with the new number of ints
-	//               [ii] copy all but one of the old array elements to the new array,
-	//                    keeping the same order some require shifting forward
-	//              [iii] free the old array
-	//               [iv] update the array pointer to the new array
-	//                [v] update the numPrey subitem accordingly
-	//          (b) update all organisms' prey[] elements that are greater than index,
-	//              which have been shifted forward in the web array
-	//
-	//          Edge case: check the size array being malloc'ed;
-	//                     for a web with only one organism and
-	//                     that orgranism goes extinct,
-	//                     instead of malloc'ing an empty array,
-	//                     explicitly set the pointer to NULL;
-	//                     see the web[] allocation in main() as an example
-	
+
 	if (*web == NULL) {
 		return; // if the web is empty, do nothing
 	}
@@ -326,30 +281,7 @@ int main(int argc, char *argv[]) {
 	
 	bool quietMode = false;
 	bool extinctMode = true;
-	
-	//meizuo (Task 0): process command-line arguments & update quietMode and extinctMode
-	//      - default values: quietMode = FALSE, extinctMode = TRUE
-	//      - if quietMode = FALSE, then print user-input prompt messages
-	//      - if extinctMode = TRUE, then perform the extinction step
-	//
-	//      valid command-line arguments are "-q" and "-x" (and can only appear once)
-	//      - set quietMode = TRUE if "-q" is present
-	//      - set extinctMode = FALSE if "-x" is present
-	//      - if an invalid command-line argument is present, print
-	//              "Invalid command-line argument. Terminating program..."
-	//        and end the program immediately
-	//
-	//      once command-line arguments are processed, print the program settings
-	//      - Ex: if the program is run as "./a.out -q -x", then print
-	//              Program Settings:
-	//                quiet mode = ON
-	//                extinction mode = OFF
-	//      - Ex: if the program is run as "./a.out", then print
-	//              Program Settings:
-	//                quiet mode = OFF
-	//                extinction mode = ON
-	
-	// get quietMode and extinctMode from command-line arguments
+
 	if (argc > 1) {
 		for (int i = 1; i < argc; ++i) {
 			if (argv[i][0] == '-' && argv[i][2] == '\0') {
